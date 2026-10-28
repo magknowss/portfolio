@@ -44,6 +44,38 @@ function getSectionId(section) {
   return section.toLowerCase().replaceAll(' ', '-');
 }
 
+function ArrowIcon() {
+  return (
+    <svg
+      className="arrow-icon"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.7"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <path d="M5 19 19 5M5 5h14v14" />
+    </svg>
+  );
+}
+
+function StarIcon() {
+  return (
+    <svg
+      className="star-icon"
+      viewBox="0 0 100 100"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="9"
+      aria-hidden="true"
+    >
+      <path d="M50 5v90M5 50h90M18 18l64 64M18 82l64-64" />
+    </svg>
+  );
+}
+
 function App() {
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState('profile');
@@ -187,7 +219,7 @@ function App() {
 
               <div className="monogram">
                 a<span>m</span>
-                <b>✳</b>
+                <b><StarIcon /></b>
               </div>
 
               <span className="art-label">
@@ -205,7 +237,7 @@ function App() {
               SCROLL TO EXPLORE <span>↓</span>
             </a>
 
-            <span>OPEN TO NEW CONNECTIONS ↗</span>
+            <span>OPEN TO NEW CONNECTIONS <ArrowIcon /></span>
           </div>
         </section>
 
@@ -264,7 +296,7 @@ function App() {
                 </div>
 
                 <span className="row-arrow" aria-hidden="true">
-                  ↗
+                  <ArrowIcon />
                 </span>
               </div>
             ))}
@@ -285,7 +317,7 @@ function App() {
 
           <div className="project-placeholder reveal">
             <div className="project-graphic" aria-hidden="true">
-              <span className="star">✳</span>
+              <span className="star"><StarIcon/></span>
               <span className="ghost-number">01</span>
             </div>
 
@@ -307,7 +339,7 @@ function App() {
               </p>
 
               <a href="mailto:magnoalexander91@gmail.com">
-                Have an idea? Let’s talk <span>↗</span>
+                Have an idea? Let’s talk <span><ArrowIcon /></span>
               </a>
             </div>
           </div>
@@ -330,7 +362,7 @@ function App() {
                 aria-label="Email Alexander"
                 className="big-arrow"
               >
-                ↗
+                <ArrowIcon />
               </a>
             </h2>
 
@@ -349,19 +381,19 @@ function App() {
             >
               <span className="contact-kind">FACEBOOK</span>
               <span>alexvicmudo</span>
-              <b aria-hidden="true">↗</b>
+              <b aria-hidden="true"><ArrowIcon /></b>
             </a>
 
             <a href="mailto:magnoalexander91@gmail.com">
               <span className="contact-kind">EMAIL</span>
               <span>magnoalexander91@gmail.com</span>
-              <b aria-hidden="true">↗</b>
+              <b aria-hidden="true"><ArrowIcon /></b>
             </a>
 
             <a href="tel:+639625399458">
               <span className="contact-kind">PHONE</span>
               <span>0962 539 9458</span>
-              <b aria-hidden="true">↗</b>
+              <b aria-hidden="true"><ArrowIcon /></b>
             </a>
           </div>
 
@@ -382,6 +414,8 @@ function App() {
           </footer>
         </section>
       </main>
+
+
     </>
   );
 }

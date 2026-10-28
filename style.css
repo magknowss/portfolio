@@ -1032,3 +1032,34 @@ footer > a:last-child {
     overflow-x: auto;
   }
 }
+
+/* SVG icons keep the same appearance across devices */
+
+.arrow-icon,
+.star-icon {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  flex-shrink: 0;
+  vertical-align: -0.12em;
+}
+
+.monogram b,
+.star,
+.big-arrow {
+  line-height: 1;
+}
+
+/* Prevent the default blue menu text on iOS */
+
+.menu {
+  color: #141414;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+/* Solid background for the sticky header */
+
+header {
+  background: #fafaf8;
+}
