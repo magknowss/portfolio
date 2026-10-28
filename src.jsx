@@ -202,7 +202,7 @@ function App() {
               </p>
 
               <a className="button" href="#find-me">
-                Let’s connect <span>↗</span>
+                Let’s connect <span><ArrowIcon /></span>
               </a>
             </div>
 
