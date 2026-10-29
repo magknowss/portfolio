@@ -79,6 +79,9 @@ function StarIcon() {
 function App() {
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState('profile');
+  const [showCV, setShowCV] = useState(false);
+
+  const cvUrl = `${import.meta.env.BASE_URL}Alexander-Magno-CV.pdf`;
 
   useEffect(() => {
     const revealObserver = new IntersectionObserver(
@@ -117,6 +120,51 @@ function App() {
       navObserver.disconnect();
     };
   }, []);
+
+  useEffect(() => {
+    if (!showCV) return;
+
+    const previousOverflow = document.body.style.overflow;
+    const previousFocus = document.activeElement;
+
+    document.body.style.overflow = 'hidden';
+
+    const dialog = document.getElementById('cv-dialog');
+    const closeButton = dialog.querySelector('.cv-close');
+
+    closeButton.focus();
+
+    function handleKeyDown(event) {
+        if (event.key === 'Escape') {
+          setShowCV(false);
+        }
+
+        if (event.key === 'Tab') {
+          const focusable = dialog.querySelectorAll(
+            'button, a[href], iframe'
+          );
+
+          const first = focusable[0];
+          const last = focusable[focusable.length - 1];
+
+          if (event.shiftKey && document.activeElement === first) {
+            event.preventDefault();
+            last.focus();
+          } else if (!event.shiftKey && document.activeElement === last) {
+            event.preventDefault();
+            first.focus();
+          }
+        }
+      }
+
+      document.addEventListener('keydown', handleKeyDown);
+
+      return () => {
+        document.body.style.overflow = previousOverflow;
+        document.removeEventListener('keydown', handleKeyDown);
+        previousFocus?.focus();
+      };
+  }, [showCV]);
 
   return (
     <>
@@ -166,7 +214,7 @@ function App() {
           className="header-contact"
           href="mailto:magnoalexander91@gmail.com"
         >
-          Let’s talk <span>↗</span>
+          Let’s talk <span><ArrowIcon/></span>
         </a>
       </header>
 
@@ -200,10 +248,20 @@ function App() {
                 <br />
                 Learning, building, and getting a little better every day.
               </p>
-
-              <a className="button" href="#find-me">
-                Let’s connect <span><ArrowIcon /></span>
-              </a>
+              
+              <div className='button-group'>
+                <a className="button" href="#find-me">
+                  Let’s connect <span><ArrowIcon/></span>
+                </a>
+                <button
+                  type="button"
+                  className="button cv-toggle"
+                  aria-haspopup="dialog"
+                  onClick={() => setShowCV(true)}
+                >
+                  Show CV<span><ArrowIcon/></span>
+                </button>
+              </div>
             </div>
 
             <div
@@ -413,6 +471,65 @@ function App() {
             <a href="#profile">BACK TO TOP ↑</a>
           </footer>
         </section>
+
+        {/* SHOW CV */}
+        {showCV && (
+          <div
+            className="cv-overlay"
+            onClick={(event) => {
+              if (event.target === event.currentTarget) {
+                setShowCV(false);
+              }
+            }}
+          >
+            <div
+              id="cv-dialog"
+              className="cv-modal"
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="cv-title"
+            >
+              <div className="cv-modal-header">
+                <h3 id="cv-title">Alexander Magno — CV</h3>
+
+                <button
+                  type="button"
+                  className="cv-close"
+                  aria-label="Close CV preview"
+                  onClick={() => setShowCV(false)}
+                >
+                  Close
+                </button>
+              </div>
+
+              <iframe
+                className="cv-modal-frame"
+                src={cvUrl}
+                title="Alexander Magno CV"
+              />
+
+              <div className="cv-modal-footer">
+                <a
+                  className="button"
+                  href={cvUrl}
+                  download="Alexander-Magno-CV.pdf"
+                >
+                  Download CV
+                </a>
+
+                <a
+                  className="cv-open"
+                  href={cvUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Open PDF in new tab
+                </a>
+              </div>
+            </div>
+          </div>
+        )}
+
       </main>
 
 
